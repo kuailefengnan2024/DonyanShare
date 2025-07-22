@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI创意总监 - 产品原型图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prototype-container {
+            width: 1200px;
+            height: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* 左侧聊天区域 */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .ai-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .message.ai .message-avatar {
+            background: #10b981;
+            color: white;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: #3b82f6;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.ai .message-content {
+            background: white;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            min-height: 44px;
+            max-height: 120px;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 22px;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: #4f46e5;
+        }
+
+        .send-button {
+            width: 44px;
+            height: 44px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .send-button:hover {
+            background: #3730a3;
+        }
+
+        /* 右侧图片展示区域 */
+        .image-section {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+        }
+
+        .image-header {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .image-header h2 {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .image-header p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .image-gallery {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .image-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .image-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .style-tag {
+            background: #ddd6fe;
+            color: #5b21b6;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .score {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background: #f3f4f6;
+        }
+
+        .action-button.primary {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .action-button.primary:hover {
+            background: #3730a3;
+        }
+
+        /* 状态指示器 */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            margin: 16px 20px;
+            border-radius: 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #f59e0b;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: #92400e;
+        }
+
+        /* 快速操作按钮 */
+        .quick-actions {
+            padding: 16px 20px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .quick-actions h3 {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .quick-action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .quick-action {
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #374151;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .quick-action:hover {
+            background: #e5e7eb;
+        }
+
+        /* 选项选择器样式 */
+        .option-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 8px 0;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: white;
+        }
+
+        .option-item:hover {
+            border-color: #d1d5db;
+            background: #f9fafb;
+        }
+
+        .option-item.active {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .option-item.selected {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .option-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .selected-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #10b981;
+            color: white;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-container">
+        <!-- 左侧聊天区域 -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <div class="ai-icon">🎨</div>
+                <h1>AI创意总监</h1>
+            </div>
+            
+            <div class="chat-messages">
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        您好！我是您的AI创意总监，可以帮您创作专业的视觉设计。请选择您需要的创作类型：
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <div class="option-selector">
+                            <div class="option-item active">
+                                <div class="option-icon">🖼️</div>
+                                <div class="option-text">
+                                    <div class="option-title">头像框</div>
+                                    <div class="option-desc">个性化头像边框设计</div>
+                                </div>
+                            </div>
+                            <div class="option-item selected">
+                                <div class="option-icon">🎨</div>
+                                <div class="option-text">
+                                    <div class="option-title">KV主视觉</div>
+                                    <div class="option-desc">活动主题视觉设计</div>
+                                </div>
+                                <div class="selected-badge">已选择</div>
+                            </div>
+                            <div class="option-item">
+                                <div class="option-icon">🏆</div>
+                                <div class="option-text">
+                                    <div class="option-title">奖励大图</div>
+                                    <div class="option-desc">游戏奖励展示图</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="message user">
+                    <div class="message-avatar">您</div>
+                    <div class="message-content">
+                        KV
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        很好！您选择了KV主视觉设计。请描述您的创意需求，比如主题、风格、色调等，我会为您创作专业的KV视觉。
+                    </div>
+                </div>
+                
+                <div class="message user">
+                    <div class="message-avatar">您</div>
+                    <div class="message-content">
+                        我想要一条国潮风的龙在天上飞，用于游戏活动的KV主视觉
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        好的！我理解您想要一个国潮风格的飞龙KV主视觉。我会为您推荐几种设计风格：传统水墨、现代国潮、赛博国风。正在搜索参考图片并分析风格特征...
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        已完成风格分析！我为您生成了3种不同风格的KV主视觉，请在右侧查看。您可以选择喜欢的风格，或告诉我需要调整的地方。
+                    </div>
+                </div>
+                
+                <div class="message user">
+                    <div class="message-avatar">您</div>
+                    <div class="message-content">
+                        第一张不错，但是龙的颜色能改成金色吗？背景也要更有气势一些
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        明白了！我会调整龙的颜色为金色，并增强背景的气势感。正在重新生成KV主视觉...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <div class="status-text">正在生成KV主视觉中，预计需要30秒...</div>
+            </div>
+            
+            <div class="chat-input">
+                <div class="input-container">
+                    <textarea class="input-field" placeholder="描述您的创意想法，或对当前图像提出修改建议..."></textarea>
+                    <button class="send-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-section">
+            <div class="image-header">
+                <h2>KV主视觉生成结果</h2>
+                <p>基于您的需求生成的游戏活动KV设计</p>
+            </div>
+            
+            <div class="image-gallery">
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        🐉 传统水墨风格<br>国潮飞龙KV主视觉<br>1920x1080
+                    </div>
+                    <div class="image-info">
+                        <span class="style-tag">传统水墨</span>
+                        <span class="score">美学: 8.5/10</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="action-button">下载</button>
+                        <button class="action-button primary">选择此风格</button>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        🐲 现代国潮风格<br>潮流飞龙KV主视觉<br>1920x1080
+                    </div>
+                    <div class="image-info">
+                        <span class="style-tag">现代国潮</span>
+                        <span class="score">美学: 9.2/10</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="action-button">下载</button>
+                        <button class="action-button">选择此风格</button>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        🔥 赛博国风风格<br>科技感飞龙KV主视觉<br>1920x1080
+                    </div>
+                    <div class="image-info">
+                        <span class="style-tag">赛博国风</span>
+                        <span class="score">美学: 8.8/10</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="action-button">下载</button>
+                        <button class="action-button">选择此风格</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>KV设计调整</h3>
+                <div class="quick-action-grid">
+                    <button class="quick-action">调整主色调</button>
+                    <button class="quick-action">修改构图</button>
+                    <button class="quick-action">添加文字区域</button>
+                    <button class="quick-action">调整尺寸比例</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

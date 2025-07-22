@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蒙特卡洛方法估算π</title>
+    <style>
+        /* --- 通用样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .page-header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        
+        .simulation-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- 估算Pi (来自 Monte2.html) --- */
+        #pi-app .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        #pi-app .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        #pi-app .simulation-area {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+        
+        #pi-app .canvas-container {
+            flex: 1;
+            text-align: center;
+        }
+        
+        #pi-app canvas {
+            border: 3px solid #333;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        #pi-app .controls {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #pi-app .stats {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        #pi-app .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        #pi-app .stat-value {
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        #pi-app .controls button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        #pi-app .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        #pi-app .controls button:active {
+            transform: translateY(0);
+        }
+        
+        #pi-app .speed-control {
+            margin: 20px 0;
+        }
+        
+        #pi-app .speed-control label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        #pi-app .speed-control input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        #pi-app .explanation {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4ECDC4;
+            margin-bottom: 20px;
+        }
+        
+        #pi-app .explanation h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        #pi-app .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        #pi-app .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        #pi-app .accuracy-indicator {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        #pi-app .accuracy-good {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        #pi-app .accuracy-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        #pi-app .accuracy-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        #pi-app .running {
+            animation: pulse 1s infinite;
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 1200px) {
+            #buffon-app .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 10px;
+            }
+             .page-header h1 {
+                font-size: 2.2em;
+            }
+            #buffon-app .stats-grid, #pi-app .simulation-area {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+            #buffon-app .experiment-controls {
+                flex-direction: column;
+            }
+            #buffon-app .parameter-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            #buffon-app .parameter-label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- 蒙特卡洛估算Pi -->
+        <section id="pi-app" class="simulation-section">
+            <div class="header">
+                <h1>🎯 蒙特卡洛模拟 - 估算π值</h1>
+                <p>通过随机投点估算圆周率的可视化演示</p>
+            </div>
+            
+            <div class="explanation">
+                <h3>💡 原理说明</h3>
+                <p><strong>蒙特卡洛方法</strong>通过在正方形内随机投点，统计落在圆内的点数比例来估算π值。</p>
+                <p><strong>公式：</strong> π ≈ 4 × (圆内点数 / 总点数)</p>
+                <p><strong>颜色说明：</strong> 🔴 红点 = 圆内点，🔵 蓝点 = 圆外点</p>
+            </div>
+            
+            <div class="simulation-area">
+                <div class="canvas-container">
+                    <canvas id="simulationCanvas" width="400" height="400"></canvas>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="stats">
+                        <div class="stat-item"><span>总点数：</span><span class="stat-value" id="totalPoints">0</span></div>
+                        <div class="stat-item"><span>圆内点数：</span><span class="stat-value" id="insidePoints">0</span></div>
+                        <div class="stat-item"><span>估算π值：</span><span class="stat-value" id="estimatedPi">0.0000</span></div>
+                        <div class="stat-item"><span>实际π值：</span><span class="stat-value">3.1416</span></div>
+                        <div class="stat-item"><span>误差：</span><span class="stat-value" id="error">0.0000</span></div>
+                    </div>
+                    
+                    <div class="accuracy-indicator" id="accuracyIndicator">准备开始模拟...</div>
+                    
+                    <div class="speed-control">
+                        <label>模拟速度：</label>
+                        <input type="range" id="speedSlider" min="1" max="100" value="50">
+                        <span id="speedValue">中等</span>
+                    </div>
+                    
+                    <button onclick="piApp.startSimulation()" id="startBtn">🚀 开始模拟</button>
+                    <button onclick="piApp.pauseSimulation()" id="pauseBtn">⏸️ 暂停</button>
+                    <button onclick="piApp.resetSimulation()" id="resetBtn">🔄 重置</button>
+                    <button onclick="piApp.addBatch()" id="batchBtn">➕ 批量添加 (1000点)</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const piApp = (function() {
+            const canvas = document.getElementById('simulationCanvas');
+            const ctx = canvas.getContext('2d');
+            const canvasSize = 400;
+            const centerX = canvasSize / 2;
+            const centerY = canvasSize / 2;
+            const radius = canvasSize / 2 - 20;
+            
+            let totalPoints = 0;
+            let insidePoints = 0;
+            let isRunning = false;
+            let animationId;
+            let speed = 50;
+            
+            function drawBackground() {
+                ctx.clearRect(0, 0, canvasSize, canvasSize);
+                ctx.strokeStyle = '#ddd';
+                ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.moveTo(centerX, 0); ctx.lineTo(centerX, canvasSize); ctx.moveTo(0, centerY); ctx.lineTo(canvasSize, centerY); ctx.stroke();
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(20, 20, canvasSize - 40, canvasSize - 40);
+                ctx.strokeStyle = '#4ECDC4';
+                ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI); ctx.stroke();
+                ctx.fillStyle = '#333';
+                ctx.font = '14px Microsoft YaHei';
+                ctx.fillText('正方形', 25, 40);
+                ctx.fillText('圆形', centerX - 15, 45);
+            }
+            
+            function generateRandomPoint() {
+                const x = Math.random() * (canvasSize - 40) + 20;
+                const y = Math.random() * (canvasSize - 40) + 20;
+                const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+                const isInside = distance <= radius;
+                return { x, y, isInside };
+            }
+            
+            function drawPoint(x, y, isInside) {
+                ctx.fillStyle = isInside ? '#FF6B6B' : '#667eea';
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            function updateStats() {
+                const estimatedPi = totalPoints > 0 ? (4 * insidePoints / totalPoints) : 0;
+                const actualPi = Math.PI;
+                const error = Math.abs(estimatedPi - actualPi);
+                
+                document.getElementById('totalPoints').textContent = totalPoints.toLocaleString();
+                document.getElementById('insidePoints').textContent = insidePoints.toLocaleString();
+                document.getElementById('estimatedPi').textContent = estimatedPi.toFixed(4);
+                document.getElementById('error').textContent = error.toFixed(4);
+                
+                const maxPoints = 10000;
+                const progress = Math.min(totalPoints / maxPoints * 100, 100);
+                document.getElementById('progressFill').style.width = progress + '%';
+                
+                const accuracyIndicator = document.getElementById('accuracyIndicator');
+                if (totalPoints < 100) {
+                     accuracyIndicator.className = 'accuracy-indicator';
+                     accuracyIndicator.textContent = '准备开始模拟...';
+                } else if (error < 0.01) {
+                    accuracyIndicator.className = 'accuracy-indicator accuracy-good';
+                    accuracyIndicator.textContent = '🎯 精度极高！';
+                } else if (error < 0.1) {
+                    accuracyIndicator.className = 'accuracy-indicator accuracy-medium';
+                    accuracyIndicator.textContent = '👍 精度良好';
+                } else {
+                    accuracyIndicator.className = 'accuracy-indicator accuracy-poor';
+                    accuracyIndicator.textContent = '📈 需要更多样本';
+                }
+            }
+            
+            function simulationStep() {
+                if (!isRunning) return;
+                const batchSize = Math.max(1, Math.floor(speed / 10));
+                for (let i = 0; i < batchSize; i++) {
+                    const point = generateRandomPoint();
+                    drawPoint(point.x, point.y, point.isInside);
+                    totalPoints++;
+                    if (point.isInside) insidePoints++;
+                }
+                updateStats();
+                const delay = Math.max(1, 101 - speed);
+                setTimeout(() => {
+                    animationId = requestAnimationFrame(simulationStep);
+                }, delay);
+            }
+            
+            function startSimulation() {
+                if(isRunning) return;
+                isRunning = true;
+                document.getElementById('startBtn').classList.add('running');
+                simulationStep();
+            }
+            
+            function pauseSimulation() {
+                isRunning = false;
+                document.getElementById('startBtn').classList.remove('running');
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            }
+            
+            function resetSimulation() {
+                pauseSimulation();
+                totalPoints = 0;
+                insidePoints = 0;
+                drawBackground();
+                updateStats();
+                document.getElementById('accuracyIndicator').className = 'accuracy-indicator';
+                document.getElementById('accuracyIndicator').textContent = '准备开始模拟...';
+                document.getElementById('progressFill').style.width = '0%';
+            }
+            
+            function addBatch() {
+                for (let i = 0; i < 1000; i++) {
+                    const point = generateRandomPoint();
+                    drawPoint(point.x, point.y, point.isInside);
+                    totalPoints++;
+                    if (point.isInside) insidePoints++;
+                }
+                updateStats();
+            }
+            
+            document.getElementById('speedSlider').addEventListener('input', function(e) {
+                speed = parseInt(e.target.value);
+                const speedLabels = ['极慢', '慢', '中等', '快', '极快'];
+                const labelIndex = Math.floor((speed - 1) / 20);
+                document.getElementById('speedValue').textContent = speedLabels[labelIndex] || '中等';
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (document.activeElement.type === 'range') return; // Ignore when slider is focused
+                switch(e.key) {
+                    case ' ':
+                        e.preventDefault();
+                        if (isRunning) pauseSimulation();
+                        else startSimulation();
+                        break;
+                    case 'r': resetSimulation(); break;
+                    case 'b': addBatch(); break;
+                }
+            });
+
+            drawBackground();
+            updateStats();
+
+            return { startSimulation, pauseSimulation, resetSimulation, addBatch };
+        })();
+    </script>
+</body>
+</html> 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 时代的学习之道: 我的知识库与 Cursor</title>
+    <title>AI时代保持自我更新:我的知识库与 Cursor</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
         body {
@@ -90,6 +90,56 @@
             font-size: 1.6rem;
             color: #343a40;
             margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .card h3 .icon {
+            margin-right: 12px;
+            font-size: 1.5rem;
+        }
+        .visualization-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+        .visualization-list li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        .visualization-list .icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .visualization-list a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+        .visualization-list a:hover {
+            text-decoration: underline;
+        }
+        .avatar-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .avatar-placeholder {
+            width: 100%;
+            padding-bottom: 100%; /* 1:1 Aspect Ratio */
+            border-radius: 50%;
+            background: linear-gradient(45deg, #d3d3d3, #a9a9a9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
         }
         .demo-box {
             background-color: #e9f7ff;
@@ -126,8 +176,8 @@
 
     <div class="wrapper">
         <header>
-            <h1>AI 时代的学习之道</h1>
-            <p>这不仅是关于工具的分享，更是关于思维方式的转变：如何利用 AI 将知识库从“静态归档”升级为“动态健身房”。</p>
+            <h1>知识库笔记与 Cursor 💡</h1>
+            <p>更新自我思维模型，适应AI时代的个人习惯</p>
         </header>
 
         <div class="tabs">
@@ -138,14 +188,20 @@
 
         <div id="learning" class="tab-content active">
             <div class="card">
-                <h3>核心理念：学习“学习的能力”</h3>
+                <h3><span class="icon">💡</span>核心理念：学习“学习的能力”</h3>
                 <p><b>非 AI 时代：</b>内容、工具和理论的变化都相对缓慢。我们记笔记是为了“归档”。</p>
                 <p><b>AI 时代：</b>内容和工具在加速迭代。这意味着，<b>学习能力本身，成为了最重要的能力。</b>我的知识库 <code>DyVault</code> 正是为此服务。</p>
             </div>
             <div class="card">
-                <h3>实践：将抽象理论“具象化”</h3>
+                <h3><span class="icon">🔬</span>实践：将抽象理论“具象化”</h3>
                 <p><b>痛点：</b>面对复杂的前沿理论（如 AI 原理、数学概念）时，往往难以理解。</p>
                 <p><b>方法：</b>利用 AI 的“翻译”能力，将复杂的概念用我能理解的比喻和方式重新解释，并存入笔记，如 <code>Notes/DeepLearn/KL.md</code>。</p>
+                
+                <ul class="visualization-list">
+                    <li><span class="icon">📈</span><a href="KL.html" target="_blank">KL 散度可视化</a></li>
+                    <li><span class="icon">🎲</span><a href="Monte_Carlo.html" target="_blank">蒙特卡洛方法模拟</a></li>
+                </ul>
+
                 <div class="demo-box">
                     <div class="title">🎬 现场挑战: 化繁为简</div>
                     <p><strong>场景:</strong> 我想让设计师同事也能秒懂“KL散度”。</p>
@@ -156,9 +212,9 @@
 
         <div id="work" class="tab-content">
             <div class="card">
-                <h3>实践：极速掌握工作新技能</h3>
+                <h3><span class="icon">🛠️</span>实践：极速掌握工作新技能</h3>
                 <p><b>痛点：</b>工作中需要快速上手一个新软件，比如 Houdini，但官方文档太庞大。</p>
-                <p><b>方法：</b>让 Cursor 成为我的“私人教师”，直接针对我的问题给出答案，并将最有价值的信息沉淀到 <code>Notes/Others/Houdini/</code> 中。</p>
+                <p><b>方法：</b>让 Cursor 成为我的“私人教师”，直接针对我的问题给出答案，并将最有价值的信息沉淀到笔记中。例如，这是我的 <a href="Vex.html" target="_blank">Vex 脚本学习笔记</a>。</p>
                 <div class="demo-box">
                     <div class="title">🎬 现场挑战: “烹饪”Houdini</div>
                     <p><strong>场景:</strong> 我想快速理解 Houdini 不同工作模块的核心区别。</p>
@@ -166,19 +222,30 @@
                 </div>
             </div>
             <div class="card">
-                <h3>工作流核心：一站式“思考-实践”闭环</h3>
+                <h3><span class="icon">🔄</span>工作流核心：一站式“思考-实践”闭环</h3>
                 <p><b>优势：</b>这是飞书等纯文档工具无法比拟的。我可以在笔记里构思，然后立刻让 Cursor 帮我创建项目 Demo 来验证想法。</p>
                 <div class="demo-box">
-                    <div class="title">🎬 现场挑战: “想法”到“原型”</div>
-                    <p><strong>场景:</strong> 我在 <code>Notes/Others/Game/LLmGame.md</code> 中有个游戏点子，想快速看看它的流程。</p>
-                    <p class="prompt">@file:Notes/Others/Game/LLmGame.md 根据这个文档里的想法，帮我在根目录创建一个新文件 'game_concept.md'，并用 Mermaid 图表画出玩家和敌人之间的一个基本互动流程。</p>
+                    <div class="title">🎬 现场挑战: AI 驱动的头像生成器</div>
+                    <p><strong>场景:</strong> 我想用 Python 脚本快速生成一系列风格化的游戏头像。</p>
+                    <p class="prompt">@file:Avatar.py 请解释这个脚本的核心功能，并说明如何使用它来生成头像。</p>
                 </div>
+                <div class="avatar-preview">
+                    <div class="avatar-placeholder">🤖</div>
+                    <div class="avatar-placeholder">👽</div>
+                    <div class="avatar-placeholder">👾</div>
+                    <div class="avatar-placeholder">👹</div>
+                    <div class="avatar-placeholder">👺</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3><span class="icon">📊</span>案例展示：AI 创意总监原型</h3>
+                <p>这是一个使用 AI 辅助生成的交互式产品原型，展示了“AI创意总监”的核心工作流程。您可以 <a href="prototype_ui.html" target="_blank">点击此处查看原型</a>。</p>
             </div>
         </div>
 
         <div id="life" class="tab-content">
             <div class="card">
-                <h3>实践：将数据转化为生活洞见</h3>
+                <h3><span class="icon">❤️‍🩹</span>实践：将数据转化为生活洞见</h3>
                 <p><b>痛点：</b>体检报告只是一堆数据，如何用它来指导我的生活？</p>
                 <p><b>方法：</b>将报告关键信息存入 <code>Health/250416.md</code>，然后让 AI 成为我的“健康管家”，帮我分析并制定可执行的计划。</p>
                  <div class="demo-box">

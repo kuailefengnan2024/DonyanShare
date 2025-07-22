@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 时代的学习之道: 我的知识库与 Cursor</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.7;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+        }
+        .wrapper {
+            max-width: 960px;
+            margin: auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        header {
+            padding: 2.5rem 2.5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        header h1 {
+            font-size: 2.6rem;
+            margin: 0 0 0.5rem 0;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            padding: 0 2.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .tab-button {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #6c757d;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .tab-button.active {
+            color: #007bff;
+        }
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+        .tab-button.active::after {
+            width: 100%;
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            background: #fdfdfd;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card h3 {
+            font-size: 1.6rem;
+            color: #343a40;
+            margin-top: 0;
+        }
+        .demo-box {
+            background-color: #e9f7ff;
+            border: 1px solid #bce0fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        .demo-box .title {
+            color: #004085;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+        }
+        .demo-box .prompt {
+            color: #0056b3;
+            font-style: italic;
+            font-weight: 500;
+            background: #d1ecff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: block;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #343a40;
+            color: #f8f9fa;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <h1>AI 时代的学习之道</h1>
+            <p>这不仅是关于工具的分享，更是关于思维方式的转变：如何利用 AI 将知识库从“静态归档”升级为“动态健身房”。</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'learning')">🚀 学习</button>
+            <button class="tab-button" onclick="openTab(event, 'work')">💼 工作</button>
+            <button class="tab-button" onclick="openTab(event, 'life')">❤️ 生活</button>
+        </div>
+
+        <div id="learning" class="tab-content active">
+            <div class="card">
+                <h3>核心理念：学习“学习的能力”</h3>
+                <p><b>非 AI 时代：</b>内容、工具和理论的变化都相对缓慢。我们记笔记是为了“归档”。</p>
+                <p><b>AI 时代：</b>内容和工具在加速迭代。这意味着，<b>学习能力本身，成为了最重要的能力。</b>我的知识库 <code>DyVault</code> 正是为此服务。</p>
+            </div>
+            <div class="card">
+                <h3>实践：将抽象理论“具象化”</h3>
+                <p><b>痛点：</b>面对复杂的前沿理论（如 AI 原理、数学概念）时，往往难以理解。</p>
+                <p><b>方法：</b>利用 AI 的“翻译”能力，将复杂的概念用我能理解的比喻和方式重新解释，并存入笔记，如 <code>Notes/DeepLearn/KL.md</code>。</p>
+                <div class="demo-box">
+                    <div class="title">🎬 现场挑战: 化繁为简</div>
+                    <p><strong>场景:</strong> 我想让设计师同事也能秒懂“KL散度”。</p>
+                    <p class="prompt">@file:Notes/DeepLearn/KL.md 我是一个设计师，请用一个关于“两张设计稿差异”的比喻，向我解释这个文档里提到的“KL散度”是什么。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="work" class="tab-content">
+            <div class="card">
+                <h3>实践：极速掌握工作新技能</h3>
+                <p><b>痛点：</b>工作中需要快速上手一个新软件，比如 Houdini，但官方文档太庞大。</p>
+                <p><b>方法：</b>让 Cursor 成为我的“私人教师”，直接针对我的问题给出答案，并将最有价值的信息沉淀到 <code>Notes/Others/Houdini/</code> 中。</p>
+                <div class="demo-box">
+                    <div class="title">🎬 现场挑战: “烹饪”Houdini</div>
+                    <p><strong>场景:</strong> 我想快速理解 Houdini 不同工作模块的核心区别。</p>
+                    <p class="prompt">我是一个 Houdini 初学者，请用一个关于“做饭”的比喻，解释一下 “SOPs”, “VOPs”, “DOPs” 这三个概念的核心区别是什么？</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>工作流核心：一站式“思考-实践”闭环</h3>
+                <p><b>优势：</b>这是飞书等纯文档工具无法比拟的。我可以在笔记里构思，然后立刻让 Cursor 帮我创建项目 Demo 来验证想法。</p>
+                <div class="demo-box">
+                    <div class="title">🎬 现场挑战: “想法”到“原型”</div>
+                    <p><strong>场景:</strong> 我在 <code>Notes/Others/Game/LLmGame.md</code> 中有个游戏点子，想快速看看它的流程。</p>
+                    <p class="prompt">@file:Notes/Others/Game/LLmGame.md 根据这个文档里的想法，帮我在根目录创建一个新文件 'game_concept.md'，并用 Mermaid 图表画出玩家和敌人之间的一个基本互动流程。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="life" class="tab-content">
+            <div class="card">
+                <h3>实践：将数据转化为生活洞见</h3>
+                <p><b>痛点：</b>体检报告只是一堆数据，如何用它来指导我的生活？</p>
+                <p><b>方法：</b>将报告关键信息存入 <code>Health/250416.md</code>，然后让 AI 成为我的“健康管家”，帮我分析并制定可执行的计划。</p>
+                 <div class="demo-box">
+                    <div class="title">🎬 现场挑战: 我的 AI 健康管家</div>
+                    <p><strong>场景:</strong> 我想根据体检报告，制定一个简单的健康计划。</p>
+                    <p class="prompt">@file:Health/250416.md 基于这份文档中提到的‘低密度脂蛋白偏高’，帮我用 markdown 格式制定一个为期一周的、注重健康饮食和有氧运动的简单计划表。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>选择一个好的工具，本质上是选择一种能放大我们学习能力的思维方式。<br>Cursor + 个人知识库，就是我现阶段找到的最佳答案。</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html> 

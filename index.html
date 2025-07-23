@@ -258,6 +258,168 @@
         .mc-demo .speed-control input { width: 100%; }
         @media (max-width: 900px) { .kl-demo .input-grid, .kl-demo .chart-container-grid { grid-template-columns: 1fr; } .kl-demo .chart-container-grid { height: auto; } .kl-demo .chart-container { height: 250px; margin-bottom: 1rem; } }
         @media (max-width: 768px) { .mc-demo .simulation-area { flex-direction: column; } }
+        
+        /* --- Embedded Demo Styles for Prototype --- */
+        .interactive-prototype-container {
+            margin-top: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            height: 800px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .interactive-prototype-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .interactive-prototype-container {
+                height: 650px;
+            }
+        }
+        
+        /* --- ASCII Demo --- */
+        .ascii-demo-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+        }
+        .ascii-panel.image-panel img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            max-height: 400px;
+            display: block;
+        }
+        .ascii-panel.controls-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .conversion-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-text-secondary);
+        }
+        .arrow-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .arrow-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+            color: var(--color-accent);
+        }
+        .controls-panel .control-group {
+            width: 120px;
+            text-align: center;
+        }
+        .controls-panel label {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .controls-panel input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+        .ascii-panel.output-panel {
+            background: #111827;
+            color: #d1d5db;
+            padding: 0.5rem;
+            border-radius: 8px;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #ascii-output {
+            font-family: var(--font-mono);
+            white-space: pre;
+            text-align: center;
+            color: #e5e7eb; /* Changed from green to light gray for better clarity */
+            /* Font size and line height are now set dynamically in JS */
+        }
+
+        @media (max-width: 860px) {
+            .ascii-demo-container {
+                grid-template-columns: 1fr;
+            }
+            .ascii-panel.controls-panel {
+                flex-direction: row;
+                justify-content: space-around;
+                width: 100%;
+            }
+            .conversion-arrow {
+                order: 2;
+            }
+            .control-group {
+                flex: 1;
+                max-width: 150px;
+                order: 1;
+            }
+            .ascii-panel.output-panel {
+                min-height: 300px;
+                height: auto;
+            }
+        }
+        
+        .explanation-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+        }
+        .explanation-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .explanation-box li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 200px;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+        .explanation-box .icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-accent);
+        }
+        .explanation-box b {
+            font-weight: 700;
+            color: var(--color-text-primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        @media (max-width: 768px) {
+            .explanation-box ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -269,8 +431,8 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="openTab(event, 'learning')">🚀 学习</button>
-            <button class="tab-button" onclick="openTab(event, 'work')">💼 工作</button>
+            <button class="tab-button active" onclick="openTab(event, 'learning')">🚀 提升</button>
+            <button class="tab-button" onclick="openTab(event, 'work')">💼 实践</button>
             <button class="tab-button" onclick="openTab(event, 'life')">❤️ 生活</button>
         </div>
 
@@ -280,6 +442,24 @@
                 <p><b>非 AI 时代：</b>内容、工具和理论的变化都相对缓慢。我们记笔记是为了“归档”。</p>
                 <p><b>AI 时代：</b>内容和工具在加速迭代。这意味着，<b>学习能力本身，成为了最重要的能力。</b>我的知识库 <code>DyVault</code> 正是为此服务。</p>
                 <p><b>未来远景：</b>每一次记录，都是在为自己的<b>“数字分身”</b>提供养料。随着未来 AI 模型训练门槛的降低，这些结构化的思考和知识，将是复刻我们思维模式的宝贵数据。</p>
+                <div class="ascii-demo-container">
+                    <div class="ascii-panel image-panel">
+                        <img id="ascii-source-image" src="image.png" alt="Digital Self Concept" crossorigin="anonymous">
+                    </div>
+                    <div class="ascii-panel controls-panel">
+                        <div class="conversion-arrow">
+                            <span class="arrow-label">个人笔记</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                        <div class="control-group">
+                            <label for="resolution-slider">粒度</label>
+                            <input id="resolution-slider" type="range" min="8" max="20" value="12" step="1">
+                        </div>
+                    </div>
+                    <div class="ascii-panel output-panel">
+                        <pre id="ascii-output">加载中...</pre>
+                    </div>
+                </div>
             </div>
             <div class="card">
                 <h3><span class="icon">🔬</span>实践：将抽象理论“具象化”</h3>
@@ -335,11 +515,12 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="demo-box">
-                    <div class="title">🎬 现场挑战: 化繁为简</div>
-                    <p><strong>场景:</strong> 我想让设计师同事也能秒懂“KL散度”。</p>
-                    <p class="prompt">@file:Notes/DeepLearn/KL.md 我是一个设计师，请用一个关于“两张设计稿差异”的比喻，向我解释这个文档里提到的“KL散度”是什么。</p>
+                <div class="explanation-box">
+                    <ul>
+                        <li><span class="icon">🎲</span><b>基石是概率</b>现代AI的核心是概率论，而非精确的规则。</li>
+                        <li><span class="icon">📈</span><b>数据是养料</b>每一个随机点，都像一条训练数据，滋养着模型成长。</li>
+                        <li><span class="icon">🎯</span><b>涌现出智能</b>当数据量足够大，简单的规则也能涌现出精确的π值——这正是AI从海量数据中学习规律的体现。</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -400,7 +581,10 @@
             </div>
             <div class="card">
                 <h3><span class="icon">📊</span>根据项目代码快速生成交互demo方便汇报</h3>
-                <p>这是一个使用 AI 辅助生成的交互式产品原型，展示了“AI创意总监”的核心工作流程。您可以 <a href="prototype_ui.html" target="_blank">点击此处查看原型</a>。</p>
+                <p>这是一个使用 AI 辅助生成的交互式产品原型，展示了“AI创意总监”的核心工作流程。现在它已直接嵌入下方，您可以立即体验。</p>
+                <div class="interactive-prototype-container">
+                    <iframe src="prototype_ui.html" title="AI Creative Director Interactive Prototype"></iframe>
+                </div>
             </div>
         </div>
 
@@ -444,7 +628,7 @@
                             <ul>
                                 <li><span class="advice-icon">🥗</span>注意到您的几项指标需要关注，可以从增加膳食纤维开始，比如多吃蔬菜、用燕麦代替部分主食。</li>
                                 <li><span class="advice-icon">👟</span>提高BMI和LDL的“性价比”之王是快走！每天30分钟，对改善指标和胃动力都有好处。</li>
-                                <li><span class="advice-icon">��</span>好的睡眠是健康基石。睡前冥想5分钟或听听轻音乐，能有效提升睡眠质量。</li>
+                                <li><span class="advice-icon">😴</span>好的睡眠是健康基石。睡前冥想5分钟或听听轻音乐，能有效提升睡眠质量。</li>
                                  <li><span class="advice-icon">🚭</span>胸部检查没发现大问题，但也要保持警惕，远离烟草环境对肺部健康最重要。</li>
                             </ul>
                         </div>
@@ -452,9 +636,11 @@
                 </div>
 
                  <div class="demo-box" style="margin-top: 2rem;">
-                    <div class="title">🎬 现场挑战: 我的 AI 健康管家</div>
-                    <p><strong>场景:</strong> 我想根据体检报告，制定一个简单的健康计划。</p>
-                    <p class="prompt">@file:Health/250416.md 基于这份文档中提到的‘低密度脂蛋白偏高’，帮我用 markdown 格式制定一个为期一周的、注重健康饮食和有氧运动的简单计划表。</p>
+                    <div class="title">🧬 AI 辅助的个性化健康管理</div>
+                    <p><strong>未来场景:</strong> 将历年体检报告、运动数据甚至基因检测报告等个人健康档案，交给你的 AI 健康管家。</p>
+                    <p class="prompt" style="text-align: center; font-style: normal; font-weight: 600;">
+                        AI 辅助你预知疾病风险，并为你量身定制生活方式、饮食结构与营养补剂方案。
+                    </p>
                 </div>
             </div>
         </div>
@@ -532,8 +718,145 @@
             if (document.body.dataset.learningDemosInitialized) return;
             document.body.dataset.learningDemosInitialized = 'true';
 
+            initAsciiDemo();
             initKLDemo();
             initMonteCarloDemo();
+        }
+
+        function initAsciiDemo() {
+            const image = document.getElementById('ascii-source-image');
+            const resolutionSlider = document.getElementById('resolution-slider');
+            const outputPre = document.getElementById('ascii-output');
+            
+            if (!image || !outputPre || !resolutionSlider) return;
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            
+            const charset = " .'`^\",:;Il!i><~+_-?][}{1)(|/\\ftjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+            const lightChars = " .'`^\",:;Il!i><~+_-?][}{1)(|/\\";
+            const mediumChars = "ftjrxnuvczXYUJCLQ0OZmwqpdbkhao";
+            const heavyChars = "*#MW&8%B@$";
+            
+            let animationInterval = null;
+            let characterMap = []; // Will store { index, density: 'light'|'medium'|'heavy' }
+
+            const stopAnimation = () => {
+                if (animationInterval) {
+                    clearInterval(animationInterval);
+                    animationInterval = null;
+                }
+            };
+
+            const animateAscii = () => {
+                const animatableChars = characterMap.filter(c => c.density === 'medium' || c.density === 'heavy');
+                if (animatableChars.length === 0) return;
+                
+                const chars = outputPre.textContent.split('');
+                const numToChange = Math.floor(animatableChars.length / 3);
+
+                for (let i = 0; i < numToChange; i++) {
+                    const randomIndex = Math.floor(Math.random() * animatableChars.length);
+                    const { index, density } = animatableChars[randomIndex];
+                    
+                    let replacementSet;
+                    if (density === 'heavy') {
+                        replacementSet = heavyChars;
+                    } else { // Medium
+                        replacementSet = mediumChars;
+                    }
+                    
+                    const randomChar = replacementSet[Math.floor(Math.random() * replacementSet.length)];
+                    chars[index] = randomChar;
+                }
+                outputPre.textContent = chars.join('');
+            };
+
+            const convertToAscii = () => {
+                stopAnimation();
+                if (!image.complete || image.naturalWidth === 0) {
+                    outputPre.textContent = "图片加载中...";
+                    return;
+                }
+
+                const outputPanel = outputPre.parentElement;
+                const resolution = parseInt(resolutionSlider.value);
+                const charDensity = 2;
+                
+                const canvasWidth = Math.floor(outputPanel.clientWidth / resolution) * charDensity;
+                const canvasHeight = Math.floor(outputPanel.clientHeight / resolution);
+                
+                if (canvasWidth <= 0 || canvasHeight <= 0) return;
+
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+                
+                const charWidth = outputPanel.clientWidth / canvas.width;
+                const fontSize = charWidth * 1.6;
+                outputPre.style.fontSize = `${fontSize}px`;
+                outputPre.style.lineHeight = `${fontSize * 0.9}px`;
+                
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                let asciiString = '';
+                const charsetLength = charset.length;
+                characterMap = []; // Reset the map
+                
+                const gamma = 1.8; // Increase contrast
+
+                for (let y = 0; y < canvas.height; y++) {
+                    let currentStringIndex = y * (canvas.width + 1);
+                    for (let x = 0; x < canvas.width; x++) {
+                        const offset = (y * canvas.width + x) * 4;
+                        const r = imageData[offset];
+                        const g = imageData[offset + 1];
+                        const b = imageData[offset + 2];
+                        const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                        
+                        const correctedBrightness = Math.pow(1 - brightness, gamma);
+                        const charIndex = Math.floor(correctedBrightness * (charsetLength - 1));
+                        
+                        const char = charset[charIndex] || charset[charset.length - 1];
+                        asciiString += char;
+
+                        if (char !== ' ') {
+                            let density = 'light';
+                            if (heavyChars.includes(char)) {
+                                density = 'heavy';
+                            } else if (mediumChars.includes(char)) {
+                                density = 'medium';
+                            }
+                            characterMap.push({ index: currentStringIndex + x, density });
+                        }
+                    }
+                    if (y < canvas.height - 1) {
+                         asciiString += '\n';
+                    }
+                }
+                
+                outputPre.textContent = asciiString;
+                animationInterval = setInterval(animateAscii, 250);
+            };
+            
+            resolutionSlider.addEventListener('input', convertToAscii);
+            
+            const setup = () => {
+                convertToAscii();
+            };
+
+            if (image.complete) {
+                setup();
+            } else {
+                image.onload = setup;
+                image.onerror = () => { outputPre.textContent = "无法加载图片。"; };
+            }
+            
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(convertToAscii, 250);
+            });
         }
 
         function initKLDemo() {

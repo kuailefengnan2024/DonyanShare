@@ -420,6 +420,76 @@
                 align-items: center;
             }
         }
+
+        /* --- Book to MD Demo --- */
+        .book-to-md-demo {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+        }
+        .book-panel {
+            text-align: center;
+        }
+        .book-panel img {
+            width: 70%;
+            max-width: 180px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 0.75rem;
+            transition: transform 0.2s;
+        }
+        .book-panel img:hover {
+            transform: scale(1.05);
+        }
+        .book-panel span {
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+        .md-panel {
+            height: 300px;
+            background: #fff;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-y: auto;
+            text-align: left;
+        }
+        .md-panel pre {
+            margin: 0;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .md-panel code {
+            font-family: var(--font-sans);
+            color: var(--color-text-primary);
+        }
+        .md-panel .md-h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 0.3rem;
+            margin: 0 0 0.5rem 0;
+        }
+        .md-panel .md-ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+        .md-panel .md-li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .book-to-md-demo {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -439,9 +509,9 @@
         <div id="learning" class="tab-content active">
             <div class="card">
                 <h3><span class="icon">💡</span>个人用笔记来持续学习的原因</h3>
-                <p><b>非 AI 时代：</b>内容、工具和理论的变化都相对缓慢。我们记笔记是为了“归档”。</p>
+                <p><b>非 AI 时代：</b>内容、工具和理论的变化都相对缓慢。我们记笔记是为了"归档"。</p>
                 <p><b>AI 时代：</b>内容和工具在加速迭代。这意味着，<b>学习能力本身，成为了最重要的能力。</b>我的知识库 <code>DyVault</code> 正是为此服务。</p>
-                <p><b>未来远景：</b>每一次记录，都是在为自己的<b>“数字分身”</b>提供养料。随着未来 AI 模型训练门槛的降低，这些结构化的思考和知识，将是复刻我们思维模式的宝贵数据。</p>
+                <p><b>未来远景：</b>每一次记录，都是在为自己的<b>"数字分身"</b>提供养料。随着未来 AI 模型训练门槛的降低，这些结构化的思考和知识，将是复刻我们思维模式的宝贵数据。</p>
                 <div class="ascii-demo-container">
                     <div class="ascii-panel image-panel">
                         <img id="ascii-source-image" src="image.png" alt="Digital Self Concept" crossorigin="anonymous">
@@ -462,9 +532,19 @@
                 </div>
             </div>
             <div class="card">
-                <h3><span class="icon">🔬</span>实践：将抽象理论“具象化”</h3>
+                <h3><span class="icon">🚀</span>我的技能武器库</h3>
+                <div class="explanation-box">
+                    <ul>
+                        <li><span class="icon">🖥️</span><b>掌握专业软件</b>快速攻克 Blender 几何节点、Houdini 等任意新工具，将学习笔记直接转化为生产力。</li>
+                        <li><span class="icon">🧠</span><b>理解复杂原理</b>无论是大模型原理还是前沿数学概念，都能通过 AI 的个性化讲解，轻松内化为自己的知识。</li>
+                        <li><span class="icon">📈</span><b>拓展能力边界</b>系统学习管理技能，探索领域创新，确保个人技能树与时代发展同步。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <h3><span class="icon">🔬</span>实践：将抽象理论"具象化"</h3>
                 <p><b>痛点：</b>面对复杂的前沿理论（如 AI 原理、数学概念）时，往往难以理解。</p>
-                <p><b>方法：</b>利用 AI 的“翻译”能力，将复杂的概念用我能理解的比喻和方式重新解释，并存入笔记，如 <code>Notes/DeepLearn/KL.md</code>。</p>
+                <p><b>方法：</b>利用 AI 的"翻译"能力，将复杂的概念用我能理解的比喻和方式重新解释，并存入笔记，如 <code>Notes/DeepLearn/KL.md</code>。</p>
                 
                 <ul class="visualization-list">
                     <li><span class="icon">📈</span><a href="KL.html" target="_blank">KL 散度可视化 (独立页面)</a></li>
@@ -526,10 +606,20 @@
         </div>
 
         <div id="work" class="tab-content">
+             <div class="card">
+                <h3><span class="icon">🛠️</span>我的工作流：为什么是Cursor？</h3>
+                <div class="explanation-box">
+                    <ul>
+                        <li><span class="icon">📦</span><b>一站式工作台</b>笔记、代码与 Demo 无缝衔接。随时基于笔记内容，一键创建或修改项目，实现想法的快速验证。</li>
+                        <li><span class="icon">🧠</span><b>训练数字分身</b>所有个人数据、聊天记录、项目文件都成为可回顾、可训练的私有语料，为未来的"个人AI"提供养料。</li>
+                        <li><span class="icon">🧩</span><b>极致多模态</b>轻松整合 PDF、图片、网页、代码等任意格式文件，打破传统笔记工具的格式壁垒，构建真正的立体化知识库。</li>
+                    </ul>
+                </div>
+            </div>
             <div class="card">
                 <h3><span class="icon">🛠️</span>实践：极速掌握工作新技能</h3>
                 <p><b>痛点：</b>工作中需要快速上手一个新软件，比如 Houdini，但官方文档太庞大。</p>
-                <p><b>方法：</b>让 Cursor 成为我的“私人教师”，直接针对我的问题给出答案，并将最有价值的信息沉淀到笔记中。例如，这是我的 <a href="Vex.html" target="_blank">Vex 脚本学习笔记</a>。</p>
+                <p><b>方法：</b>让 Cursor 成为我的"私人教师"，直接针对我的问题给出答案，并将最有价值的信息沉淀到笔记中。例如，这是我的 <a href="Vex.html" target="_blank">Vex 脚本学习笔记</a>。</p>
                 
                 <div class="demo-box vex-demo" style="margin-top: 2rem;">
                     <div class="title">🎬 VEX 交互演示：程序化圆环</div>
@@ -561,9 +651,9 @@
                 </div>
 
                 <div class="demo-box" style="margin-top: 2rem;">
-                    <div class="title">🎬 现场挑战: “烹饪”Houdini</div>
+                    <div class="title">🎬 现场挑战: "烹饪"Houdini</div>
                     <p><strong>场景:</strong> 我想快速理解 Houdini 不同工作模块的核心区别。</p>
-                    <p class="prompt">我是一个 Houdini 初学者，请用一个关于“做饭”的比喻，解释一下 “SOPs”, “VOPs”, “DOPs” 这三个概念的核心区别是什么？</p>
+                    <p class="prompt">我是一个 Houdini 初学者，请用一个关于"做饭"的比喻，解释一下 "SOPs", "VOPs", "DOPs" 这三个概念的核心区别是什么？</p>
                 </div>
             </div>
             <div class="card">
@@ -581,7 +671,7 @@
             </div>
             <div class="card">
                 <h3><span class="icon">📊</span>根据项目代码快速生成交互demo方便汇报</h3>
-                <p>这是一个使用 AI 辅助生成的交互式产品原型，展示了“AI创意总监”的核心工作流程。现在它已直接嵌入下方，您可以立即体验。</p>
+                <p>这是一个使用 AI 辅助生成的交互式产品原型，展示了"AI创意总监"的核心工作流程。现在它已直接嵌入下方，您可以立即体验。</p>
                 <div class="interactive-prototype-container">
                     <iframe src="prototype_ui.html" title="AI Creative Director Interactive Prototype"></iframe>
                 </div>
@@ -590,10 +680,36 @@
 
         <div id="life" class="tab-content">
             <div class="card">
-                <h3><span class="icon">❤️‍🩹</span>实践：将数据转化为生活洞见</h3>
-                <p><b>方法：</b>将体检报告等关键健康信息存入笔记，然后让 AI 成为我的“健康管家”，帮我分析并制定可执行的计划。</p>
-                
-                <div class="health-container">
+                <h3><span class="icon">📚</span>实践：AI 辅助的高效知识萃取</h3>
+                <p><b>痛点：</b>面对浩如烟海的书籍和报告，时间有限，难以快速吸收核心思想。</p>
+                <p><b>方法：</b>将任意书籍、PDF或网页交给AI，它能为你快速提炼精要，生成结构化的Markdown笔记，极大地提升知识获取效率。<b>（但也需警惕"知其然不知其所以然"的陷阱）</b></p>
+                <div class="book-to-md-demo">
+                    <div class="book-panel">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=400" alt="Book Cover">
+                        <span>《思考，快与慢》</span>
+                    </div>
+                    <div class="conversion-arrow">
+                         <span class="arrow-label">AI 精读 & 总结</span>
+                         <span class="arrow-icon">→</span>
+                    </div>
+                    <div class="md-panel">
+                        <pre><code><div class="md-h2">1. 双系统理论</div><ul class="md-ul"><li class="md-li"><b>系统1 (快思):</b> 直觉、快速、自动。
+  - <i>优点:</i> 高效、省力。
+  - <i>缺点:</i> 容易出错、受偏见影响。</li><li class="md-li"><b>系统2 (慢思):</b> 逻辑、专注、受控。
+  - <i>优点:</i> 深入、理性。
+  - <i>缺点:</i> 耗费精力、懒惰。</li></ul><div class="md-h2">2. 认知偏误</div><ul class="md-ul"><li class="md-li"><b>锚定效应:</b> 第一印象影响后续判断。</li><li class="md-li"><b>可得性启发:</b> 越容易想到的事，越觉得会发生。</li>...</ul></code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3><span class="icon">❤️‍🩹</span>实践：AI 辅助的健康与自我认知</h3>
+                <div class="explanation-box">
+                     <ul>
+                        <li><span class="icon">❤️</span><b>科学管理健康</b>整合历年体检报告与可穿戴设备数据，AI 辅助你更科学地管理健康和生活方式。</li>
+                        <li><span class="icon">🧘</span><b>客观审视自我</b>记录生活经验与感悟，通过与 AI 对话，更客观、理性地看待自己的人生轨迹。</li>
+                    </ul>
+                </div>
+                <div class="health-container" style="margin-top: 2rem;">
                     <!-- Left Side: The Report -->
                     <div class="report-side">
                         <h4>📘 我的健康笔记</h4>
@@ -627,7 +743,7 @@
                             <h5>综合建议</h5>
                             <ul>
                                 <li><span class="advice-icon">🥗</span>注意到您的几项指标需要关注，可以从增加膳食纤维开始，比如多吃蔬菜、用燕麦代替部分主食。</li>
-                                <li><span class="advice-icon">👟</span>提高BMI和LDL的“性价比”之王是快走！每天30分钟，对改善指标和胃动力都有好处。</li>
+                                <li><span class="advice-icon">👟</span>提高BMI和LDL的"性价比"之王是快走！每天30分钟，对改善指标和胃动力都有好处。</li>
                                 <li><span class="advice-icon">😴</span>好的睡眠是健康基石。睡前冥想5分钟或听听轻音乐，能有效提升睡眠质量。</li>
                                  <li><span class="advice-icon">🚭</span>胸部检查没发现大问题，但也要保持警惕，远离烟草环境对肺部健康最重要。</li>
                             </ul>
